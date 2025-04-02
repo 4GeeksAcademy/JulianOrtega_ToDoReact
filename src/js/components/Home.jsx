@@ -1,28 +1,54 @@
-import React from "react";
+import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import UserOperations from './UserOperations';
+import TodoOperations from './TodoOperations';
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+function App() {
+  const [activeTab, setActiveTab] = useState('users');
+  const [username, setUsername] = useState('');
 
-//create your first component
-const Home = () => {
-	return (
-		<div className="text-center">
-            
+  return (
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">To-Do List API Interface</h1>
+      
+      <div className="mb-3">
+        <label htmlFor="username" className="form-label">Username:</label>
+        <input
+          type="text"
+          className="form-control"
+          id="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Enter username"
+        />
+      </div>
+      
+      <ul className="nav nav-tabs mb-4">
+        <li className="nav-item">
+          <button
+            className={`nav-link ${activeTab === 'users' ? 'active' : ''}`}
+            onClick={() => setActiveTab('users')}
+          >
+            User Operations
+          </button>
+        </li>
+        <li className="nav-item">
+          <button
+            className={`nav-link ${activeTab === 'todos' ? 'active' : ''}`}
+            onClick={() => setActiveTab('todos')}
+          >
+            Todo Operations
+          </button>
+        </li>
+      </ul>
+      
+      {activeTab === 'users' ? (
+        <UserOperations username={username} />
+      ) : (
+        <TodoOperations username={username} />
+      )}
+    </div>
+  );
+}
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
-};
-
-export default Home;
+export default App;
