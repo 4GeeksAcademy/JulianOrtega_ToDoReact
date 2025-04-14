@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from './Modal';
 
 const UserOperations = ({ username }) => {
@@ -24,6 +24,12 @@ const UserOperations = ({ username }) => {
       const data = await res.json();
       setResponse(data);
       setShowModal(true);
+      
+      if (method == "POST" || method == "DELETE") {
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
     } catch (error) {
       setResponse({ error: error.message });
       setShowModal(true);
@@ -31,6 +37,11 @@ const UserOperations = ({ username }) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    handleApiCall('GET', `/users/JulianOrtega`);
+    setLabel(3);
+  }, []);
 
   return (
     <div>

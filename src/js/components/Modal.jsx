@@ -1,12 +1,10 @@
 const Modal = ({ content, lable = 0, onClose }) => {
-  console.log(content, lable);
   
   // Función para renderizar el contenido adecuadamente
   const renderContent = () => {
     
     if (!content) return <p>No data available</p>;
     
-    // Crear usuario o tarea, actualizar Tarea
     if (lable == 1 || lable == 5 || lable == 6 || lable == 7 && !content.detail) {
       return (
         <div className="card">
